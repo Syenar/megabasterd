@@ -1,25 +1,38 @@
 # MegaBasterd — Syenar fork
 
-MegaBasterd was originally created by [Tonikelope](https://github.com/tonikelope). This unofficial fork is maintained by Syenar. The original copyright notices and [GPLv3 license](LICENSE) are preserved. See the [original project](https://github.com/tonikelope/megabasterd) and its [contributors](https://github.com/tonikelope/megabasterd/graphs/contributors).
+**MegaBasterd was originally created by [Tonikelope](https://github.com/tonikelope). This unofficial fork is maintained by Syenar.** It keeps MegaBasterd’s cross-platform MEGA download, upload, and streaming features, with a quality-of-life improvement for people who open Settings often.
 
-Use this credit in Syenar fork release notes: **MegaBasterd was originally created by [Tonikelope](https://github.com/tonikelope/megabasterd). This fork is maintained by Syenar.**
+[Download the latest Syenar fork release](https://github.com/Syenar/megabasterd/releases/latest) · [Browse all releases](https://github.com/Syenar/megabasterd/releases) · [View the original Tonikelope project](https://github.com/tonikelope/megabasterd)
 
-## Settings shortcut update (2026-11-18)
+## What this fork adds
 
-Adds a compact settings cog immediately after DEBUG on the main page. It opens the existing Settings dialog, including the normal save and account cleanup behavior. The icon has a localized tooltip, an accessible name, hover feedback, keyboard focus, and zoom scaling. Opening Settings preserves the selected transfer or debug page.
+- **Quick Settings access.** A gear button sits beside the DEBUG tab on the main screen, so Settings opens directly without going through Edit. It reuses the normal Settings dialog and save behavior, including account cleanup.
+- **Keeps your place.** Opening and closing Settings leaves the selected Downloads, Uploads, or DEBUG page selected.
+- **Accessible, resizable control.** The gear has a translated Settings tooltip and accessible name, responds to keyboard focus, shows hover feedback, and scales with the app’s zoom setting.
+- **Fork-aware update notices.** Startup and About check the Syenar fork’s published releases. The About download button opens the Syenar release page, keeping users on this fork when they update.
+- **Clear fork identity.** The app window, tray tooltip, and About dialog identify the Syenar fork and credit Tonikelope as the original creator.
 
-The published build is based on upstream 8.61. Download the runnable JAR from this fork's Releases page and run it with Java 8 or later. This fork is maintained independently and is not an official Tonikelope release.
+The fork's user-facing changes are the main-screen Settings shortcut, fork-specific update links and release checking, and visible credit for the original creator with the fork maintainer identified.
 
-Validation: Maven package build and an isolated Swing smoke check covering click and keyboard activation, selection preservation, accessible labeling, zoom scaling, and scrollable narrow layouts. Full live desktop capture could not be verified because the desktop capture service reported a GPU failure.
+## Download and run
 
-To run the smoke check after building:
+Download `MegaBasterd-8.61-settings.3-jar-with-dependencies.jar` from the [latest release](https://github.com/Syenar/megabasterd/releases/latest). It includes its Java dependencies and runs with Java 8 or later:
 
 ```text
-javac -encoding UTF-8 -cp target/classes -d target/test-classes scripts/SettingsShortcutSmoke.java
-java -Djava.awt.headless=true -cp "target/classes;target/test-classes" com.tonikelope.megabasterd.SettingsShortcutSmoke
+java -jar MegaBasterd-8.61-settings.3-jar-with-dependencies.jar
 ```
 
-Use `:` instead of `;` in the classpath on Linux/macOS.
+The release includes a SHA-256 checksum. Source code for each release is available in its tag and GitHub source archives.
+
+## Original project and license
+
+MegaBasterd was created by [Tonikelope](https://github.com/tonikelope), who remains credited in the application and source. This repository is an independent community fork maintained by **Syenar**. It is not an official upstream release. Visit the [original project](https://github.com/tonikelope/megabasterd) for upstream development and releases.
+
+This fork preserves the upstream copyright notices and is distributed under the [GNU General Public License v3](LICENSE). MegaBasterd must be used in accordance with [MEGA’s terms of use](https://mega.io/terms).
+
+## Search terms
+
+MegaBasterd Syenar fork, Tonikelope MegaBasterd fork, MEGA downloader for Windows Linux macOS, MEGA download manager, MEGA uploader, MEGA streaming, quick settings shortcut, open-source MEGA client.
 
 ---
 
