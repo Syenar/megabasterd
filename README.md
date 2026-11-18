@@ -1,6 +1,8 @@
 # MegaBasterd — Syenar fork
 
-Unofficial fork of [tonikelope/megabasterd](https://github.com/tonikelope/megabasterd), created by Tonikelope. This fork retains the GNU GPL v3 license and original copyright notices.
+MegaBasterd was originally created by [Tonikelope](https://github.com/tonikelope). This unofficial fork is maintained by Syenar. The original copyright notices and [GPLv3 license](LICENSE) are preserved. See the [original project](https://github.com/tonikelope/megabasterd) and its [contributors](https://github.com/tonikelope/megabasterd/graphs/contributors).
+
+Use this credit in Syenar fork release notes: **MegaBasterd was originally created by [Tonikelope](https://github.com/tonikelope/megabasterd). This fork is maintained by Syenar.**
 
 ## Settings shortcut update (2026-11-18)
 
