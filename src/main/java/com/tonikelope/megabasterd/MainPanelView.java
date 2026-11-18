@@ -1409,6 +1409,12 @@ public final class MainPanelView extends javax.swing.JFrame {
         new_download_menu.doClick();
     }//GEN-LAST:event_new_download_buttonActionPerformed
 
+    /** Main-page cog, added 2026-11-18. Reuses all Settings save/cleanup behavior. */
+    void installSettingsShortcut() {
+        SettingsShortcutButton.install(jTabbedPane1, settings_menu.getText(),
+                _main_panel.getZoom_factor(), () -> settings_menu.doClick());
+    }
+
     private void settings_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settings_menuActionPerformed
 
         SettingsDialog dialog = new SettingsDialog(this, true);

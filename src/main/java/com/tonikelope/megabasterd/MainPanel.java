@@ -66,7 +66,7 @@ import javax.swing.UIManager;
  */
 public final class MainPanel {
 
-    public static final String VERSION = "8.61";
+    public static final String VERSION = "8.61-settings.1";
     public static final boolean FORCE_SMART_PROXY = false; //TRUE FOR DEBUGING SMART PROXY
     public static final int THROTTLE_SLICE_SIZE = 16 * 1024;
     public static final int DEFAULT_BYTE_BUFFER_SIZE = 16 * 1024;
@@ -678,6 +678,7 @@ public final class MainPanel {
                 // enough.
 
                 DebugLogBus.bind(debug_area);
+                _view.installSettingsShortcut();
             } catch (Exception ex) {
                 Logger.getLogger(MainPanel.class.getName()).log(Level.WARNING,
                         "Could not wire DEBUG LOG tab: {0}", ex.getMessage());

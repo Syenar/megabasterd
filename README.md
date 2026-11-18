@@ -1,3 +1,26 @@
+# MegaBasterd — Syenar fork
+
+Unofficial fork of [tonikelope/megabasterd](https://github.com/tonikelope/megabasterd), created by Tonikelope. This fork retains the GNU GPL v3 license and original copyright notices.
+
+## Settings shortcut update (2026-11-18)
+
+Adds a compact settings cog immediately after DEBUG on the main page. It opens the existing Settings dialog, including the normal save and account cleanup behavior. The icon has a localized tooltip, an accessible name, hover feedback, keyboard focus, and zoom scaling. Opening Settings preserves the selected transfer or debug page.
+
+The published build is based on upstream 8.61. Download the runnable JAR from this fork's Releases page and run it with Java 8 or later. This fork is maintained independently and is not an official Tonikelope release.
+
+Validation: Maven package build and an isolated Swing smoke check covering click and keyboard activation, selection preservation, accessible labeling, zoom scaling, and scrollable narrow layouts. Full live desktop capture could not be verified because the desktop capture service reported a GPU failure.
+
+To run the smoke check after building:
+
+```text
+javac -encoding UTF-8 -cp target/classes -d target/test-classes scripts/SettingsShortcutSmoke.java
+java -Djava.awt.headless=true -cp "target/classes;target/test-classes" com.tonikelope.megabasterd.SettingsShortcutSmoke
+```
+
+Use `:` instead of `;` in the classpath on Linux/macOS.
+
+---
+
 <h1>MegaBasterd</h1>
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
