@@ -68,7 +68,7 @@ public final class MainPanel {
 
     // Keep the existing fork profile directory when publishing a maintenance release.
     public static final String VERSION = "8.61-settings.1";
-    public static final String RELEASE_VERSION = "8.61-settings.4";
+    public static final String RELEASE_VERSION = "8.61-settings.5";
     public static final boolean FORCE_SMART_PROXY = false; //TRUE FOR DEBUGING SMART PROXY
     public static final int THROTTLE_SLICE_SIZE = 16 * 1024;
     public static final int DEFAULT_BYTE_BUFFER_SIZE = 16 * 1024;

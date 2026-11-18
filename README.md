@@ -6,20 +6,20 @@
 
 ## What this fork adds
 
-- **Quick Settings access.** A gear button sits beside the DEBUG tab on the main screen, so Settings opens directly without going through Edit. It reuses the normal Settings dialog and save behavior, including account cleanup.
-- **Keeps your place.** Opening and closing Settings leaves the selected Downloads, Uploads, or DEBUG page selected.
+- **Direct main-page actions.** The `START` tab opens the New download flow, and `COPY LINKS` opens the existing copy-links action. Both are one click away in the main tab strip. Separate New download and New upload buttons are also available in their transfer panes.
+- **Quick Settings access.** A gear button beside DEBUG opens the existing Settings dialog directly, with the normal save and account cleanup behavior. Opening or closing it keeps your selected Downloads, Uploads, or DEBUG page in view.
 - **Accessible, resizable control.** The gear has a translated Settings tooltip and accessible name, responds to keyboard focus, shows hover feedback, and scales with the app’s zoom setting.
 - **Fork-aware update notices.** Startup and About check the Syenar fork’s published releases. The About download button opens the Syenar release page, keeping users on this fork when they update.
 - **Clear fork identity.** The app window, tray tooltip, and About dialog identify the Syenar fork and credit Tonikelope as the original creator.
 
-The fork's user-facing changes are the main-screen Settings shortcut, fork-specific update links and release checking, and visible credit for the original creator with the fork maintainer identified.
+The `START` and `COPY LINKS` tabs are Syenar fork additions to the main page. The current upstream application also has separate New download and New upload buttons, auto-accept folder links, optional automatic public links for uploads, and the KEEP THIS action for folder contents. The Syenar fork adds the Settings gear, fork-specific update links and release checks, and clear in-app credit for Tonikelope with Syenar identified as the maintainer.
 
 ## Download and run
 
-Download `MegaBasterd-8.61-settings.3-jar-with-dependencies.jar` from the [latest release](https://github.com/Syenar/megabasterd/releases/latest). It includes its Java dependencies and runs with Java 8 or later:
+Download `MegaBasterd-8.61-settings.5-jar-with-dependencies.jar` from the [latest release](https://github.com/Syenar/megabasterd/releases/latest). It includes its Java dependencies and runs with Java 8 or later:
 
 ```text
-java -jar MegaBasterd-8.61-settings.3-jar-with-dependencies.jar
+java -jar MegaBasterd-8.61-settings.5-jar-with-dependencies.jar
 ```
 
 The release includes a SHA-256 checksum. Source code for each release is available in its tag and GitHub source archives.

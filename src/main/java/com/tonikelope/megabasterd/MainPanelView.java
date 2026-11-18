@@ -540,6 +540,7 @@ public final class MainPanelView extends javax.swing.JFrame {
 
             jTabbedPane1.setTitleAt(0, LabelTranslatorSingleton.getInstance().translate("Downloads"));
             jTabbedPane1.setTitleAt(1, LabelTranslatorSingleton.getInstance().translate("Uploads"));
+            installTransferActionTab();
             jTabbedPane1.setDropTarget(new DropTarget() {
 
                 public boolean canImport(DataFlavor[] flavors) {
@@ -1409,6 +1410,36 @@ public final class MainPanelView extends javax.swing.JFrame {
         new_download_menu.doClick();
     }//GEN-LAST:event_new_download_buttonActionPerformed
 
+    /** Add direct main-page actions for starting downloads and copying links. */
+    private void installTransferActionTab() {
+        jTabbedPane1.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+
+        javax.swing.JPanel startContent = new javax.swing.JPanel();
+        javax.swing.JPanel copyContent = new javax.swing.JPanel();
+        startContent.setOpaque(false);
+        copyContent.setOpaque(false);
+
+        jTabbedPane1.addTab("START", unfreeze_transferences_button.getIcon(), startContent);
+        final int startTab = jTabbedPane1.getTabCount() - 1;
+        jTabbedPane1.setToolTipTextAt(startTab, unfreeze_transferences_button.getText());
+
+        jTabbedPane1.addTab("COPY LINKS", jButton1.getIcon(), copyContent);
+        final int copyTab = jTabbedPane1.getTabCount() - 1;
+        jTabbedPane1.setToolTipTextAt(copyTab, jButton1.getText());
+
+        jTabbedPane1.addChangeListener((javax.swing.event.ChangeEvent e) -> {
+            int selected = jTabbedPane1.getSelectedIndex();
+            if (selected == startTab) {
+                jTabbedPane1.setSelectedIndex(0);
+                new_download_menuActionPerformed(new java.awt.event.ActionEvent(unfreeze_transferences_button,
+                        java.awt.event.ActionEvent.ACTION_PERFORMED, unfreeze_transferences_button.getActionCommand()));
+            } else if (selected == copyTab) {
+                jTabbedPane1.setSelectedIndex(0);
+                jButton1ActionPerformed(new java.awt.event.ActionEvent(jButton1,
+                        java.awt.event.ActionEvent.ACTION_PERFORMED, jButton1.getActionCommand()));
+            }
+        });
+    }
     /** Main-page cog, added 2026-11-18. Reuses all Settings save/cleanup behavior. */
     void installSettingsShortcut() {
         SettingsShortcutButton.install(jTabbedPane1, settings_menu.getText(),
