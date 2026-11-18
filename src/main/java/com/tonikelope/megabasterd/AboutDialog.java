@@ -24,7 +24,8 @@ import javax.swing.JOptionPane;
 public class AboutDialog extends javax.swing.JDialog {
 
     public static final String MEGA_URL = "https://mega.nz/";
-    public static final String MEGABASTERD_URL = "https://github.com/tonikelope/megabasterd/releases/latest";
+    public static final String RELEASE_API_URL = "https://api.github.com/repos/Syenar/megabasterd/releases/latest";
+    public static final String MEGABASTERD_URL = "https://github.com/Syenar/megabasterd/releases/latest";
     public static final String TONIKELOPE_URL = "https://github.com/tonikelope/";
     public static final String MEGACRYPTER_URL = "https://tonikelope.github.io/megacrypter/";
     public static final String SPAIN_URL = "https://en.wikipedia.org/wiki/Spain";
@@ -92,7 +93,7 @@ public class AboutDialog extends javax.swing.JDialog {
         });
 
         title_label.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        title_label.setText("MegaBasterd " + VERSION + " ");
+        title_label.setText("MegaBasterd " + RELEASE_VERSION + " ");
         title_label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         title_label.setDoubleBuffered(true);
         title_label.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -342,7 +343,17 @@ public class AboutDialog extends javax.swing.JDialog {
         final Dialog tthis = this;
 
         THREAD_POOL.execute(() -> {
-            final String new_version = checkNewVersion(MEGABASTERD_URL);
+            final String new_version;
+            try {
+                new_version = checkNewVersion(RELEASE_API_URL);
+            } catch (java.io.IOException ex) {
+                MiscTools.GUIRun(() -> {
+                    JOptionPane.showMessageDialog(tthis, I18n.tr("ui.about.update_check_failed"));
+                    check_version_button.setText(old_check_version_button_text);
+                    check_version_button.setEnabled(true);
+                });
+                return;
+            }
 
             MiscTools.GUIRun(() -> {
                 if (new_version != null) {

@@ -10,7 +10,6 @@
 package com.tonikelope.megabasterd;
 
 import static com.tonikelope.megabasterd.MainPanel.THREAD_POOL;
-import static com.tonikelope.megabasterd.MainPanel.VERSION;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -1677,21 +1676,16 @@ public class MiscTools {
         return null;
     }
 
-    public static String checkNewVersion(String url) {
+    private static final Pattern FORK_RELEASE_VERSION =
+            Pattern.compile("v?([0-9]+)\\.([0-9]+)-settings\\.([0-9]+)");
 
-        String new_version_major = null, new_version_minor = null, current_version_major = null, current_version_minor = null;
-
-        URL mb_url;
-
+    public static String checkNewVersion(String url) throws IOException {
+        URL releaseUrl = new URL(url);
         HttpURLConnection con = null;
-
         try {
-
-            mb_url = new URL(url);
-
             if (MainPanel.isUse_proxy()) {
 
-                con = (HttpURLConnection) mb_url.openConnection(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(MainPanel.getProxy_host(), MainPanel.getProxy_port())));
+                con = (HttpURLConnection) releaseUrl.openConnection(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(MainPanel.getProxy_host(), MainPanel.getProxy_port())));
 
                 if (MainPanel.getProxy_user() != null && !"".equals(MainPanel.getProxy_user())) {
 
@@ -1699,59 +1693,39 @@ public class MiscTools {
                 }
             } else {
 
-                con = (HttpURLConnection) mb_url.openConnection();
+                con = (HttpURLConnection) releaseUrl.openConnection();
             }
 
+            con.setConnectTimeout(5000);
+            con.setReadTimeout(5000);
             con.setUseCaches(false);
+            con.setRequestProperty("Accept", "application/vnd.github+json");
 
-            try (InputStream is = con.getInputStream(); ByteArrayOutputStream byte_res = new ByteArrayOutputStream()) {
-
-                byte[] buffer = new byte[MainPanel.DEFAULT_BYTE_BUFFER_SIZE];
-
-                int reads;
-
-                while ((reads = is.read(buffer)) != -1) {
-
-                    byte_res.write(buffer, 0, reads);
-                }
-
-                String latest_version_res = new String(byte_res.toByteArray(), "UTF-8");
-
-                String latest_version = findFirstRegex("releases\\/tag\\/v?([0-9]+\\.[0-9]+)", latest_version_res, 1);
-
-                if (latest_version == null) {
-                    // GitHub page format changed; bail without crashing.
-                    Logger.getLogger(MiscTools.class.getName()).log(Level.FINE, "checkNewVersion: could not extract latest tag from response");
-                    return null;
-                }
-
-                new_version_major = findFirstRegex("([0-9]+)\\.[0-9]+", latest_version, 1);
-
-                new_version_minor = findFirstRegex("[0-9]+\\.([0-9]+)", latest_version, 1);
-
-                current_version_major = findFirstRegex("([0-9]+)\\.[0-9]+$", VERSION, 1);
-
-                current_version_minor = findFirstRegex("[0-9]+\\.([0-9]+)$", VERSION, 1);
-
-                if (new_version_major != null && new_version_minor != null && current_version_major != null && current_version_minor != null
-                        && (Integer.parseInt(current_version_major) < Integer.parseInt(new_version_major)
-                        || (Integer.parseInt(current_version_major) == Integer.parseInt(new_version_major) && Integer.parseInt(current_version_minor) < Integer.parseInt(new_version_minor)))) {
-
-                    return new_version_major + "." + new_version_minor;
-
-                }
+            try (InputStream stream = con.getInputStream()) {
+                com.fasterxml.jackson.databind.JsonNode release = new com.fasterxml.jackson.databind.ObjectMapper().readTree(stream);
+                String tag = release == null ? "" : release.path("tag_name").asText();
+                return newerForkRelease(tag, MainPanel.RELEASE_VERSION);
             }
-
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(MiscTools.class.getName()).log(Level.SEVERE, ex.getMessage());
-        } catch (IOException ex) {
-            Logger.getLogger(MiscTools.class.getName()).log(Level.SEVERE, ex.getMessage());
         } finally {
             if (con != null) {
                 con.disconnect();
             }
         }
+    }
 
+    static String newerForkRelease(String tag, String currentVersion) throws IOException {
+        Matcher available = FORK_RELEASE_VERSION.matcher(tag);
+        Matcher current = FORK_RELEASE_VERSION.matcher(currentVersion);
+        if (!available.matches() || !current.matches()) {
+            throw new IOException("Unrecognized fork release version");
+        }
+        for (int part = 1; part <= 3; part++) {
+            int comparison = new java.math.BigInteger(available.group(part))
+                    .compareTo(new java.math.BigInteger(current.group(part)));
+            if (comparison != 0) {
+                return comparison > 0 ? tag.substring(tag.startsWith("v") ? 1 : 0) : null;
+            }
+        }
         return null;
     }
 

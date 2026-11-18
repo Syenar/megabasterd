@@ -669,7 +669,7 @@ public final class MainPanelView extends javax.swing.JFrame {
         help_menu = new javax.swing.JMenu();
         about_menu = new javax.swing.JMenuItem();
 
-        setTitle("MegaBasterd " + VERSION);
+        setTitle("MegaBasterd " + RELEASE_VERSION);
         setIconImage(new ImageIcon(getClass().getResource(ICON_FILE)).getImage());
         setPreferredSize(new java.awt.Dimension(1024, 650));
         setSize(new java.awt.Dimension(1024, 650));

@@ -397,7 +397,7 @@ public final class MegaErrorMessages {
     public static String buildPlainText(int code, String identity, String context, Source source) {
         StringBuilder sb = new StringBuilder();
         sb.append("**").append(getTitle(code, source)).append("**\n\n");
-        sb.append("- MegaBasterd version: ").append(MainPanel.VERSION).append("\n");
+        sb.append("- MegaBasterd version: ").append(MainPanel.RELEASE_VERSION).append("\n");
         sb.append("- Error code: ").append(code).append(" (").append(getShortName(code)).append(")\n");
         sb.append("- Source: ").append(source).append("\n");
         if (identity != null && !identity.isEmpty()) {

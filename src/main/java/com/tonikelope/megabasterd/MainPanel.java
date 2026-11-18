@@ -66,7 +66,9 @@ import javax.swing.UIManager;
  */
 public final class MainPanel {
 
+    // Keep the existing fork profile directory when publishing a maintenance release.
     public static final String VERSION = "8.61-settings.1";
+    public static final String RELEASE_VERSION = "8.61-settings.2";
     public static final boolean FORCE_SMART_PROXY = false; //TRUE FOR DEBUGING SMART PROXY
     public static final int THROTTLE_SLICE_SIZE = 16 * 1024;
     public static final int DEFAULT_BYTE_BUFFER_SIZE = 16 * 1024;
@@ -718,11 +720,14 @@ public final class MainPanel {
         _check_old_version();
 
         THREAD_POOL.execute(() -> {
-            _new_version = checkNewVersion(AboutDialog.MEGABASTERD_URL);
-
-            if (_new_version != null) {
-
-                JOptionPane.showMessageDialog(getView(), LabelTranslatorSingleton.getInstance().translate("MegaBasterd NEW VERSION is available! -> ") + _new_version);
+            try {
+                _new_version = checkNewVersion(AboutDialog.RELEASE_API_URL);
+                if (_new_version != null) {
+                    MiscTools.GUIRun(() -> JOptionPane.showMessageDialog(getView(),
+                            LabelTranslatorSingleton.getInstance().translate("MegaBasterd NEW VERSION is available! -> ") + _new_version));
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(MainPanel.class.getName()).log(Level.FINE, "Could not check for fork updates", ex);
             }
         });
 
@@ -2165,7 +2170,7 @@ public final class MainPanel {
 
             _trayicon = new TrayIcon(getDefaultToolkit().getImage(getClass().getResource(ICON_FILE)), "MegaBasterd", null);
 
-            _trayicon.setToolTip("MegaBasterd " + VERSION);
+            _trayicon.setToolTip("MegaBasterd " + RELEASE_VERSION);
 
             _trayicon.setImageAutoSize(true);
 
